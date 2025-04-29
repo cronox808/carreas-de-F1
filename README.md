@@ -11,7 +11,7 @@ La aplicación estará construida utilizando HTML, JavaScript y Web Components, 
 
 
 
-##Objetivos del Proyecto
+## Objetivos del Proyecto
 
 
 Este proyecto busca ofrecer una plataforma interactiva donde los usuarios puedan:
