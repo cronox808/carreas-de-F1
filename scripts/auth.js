@@ -1,67 +1,86 @@
-let esAdmin = false
+let esAdmin = false;
 
 const ADMIN_CREDENCIALES = {
     user: "admin",
     password: "f1admin2023"
+};
+
+// Función de login
+export function login(user, password) {
+    esAdmin = (user === ADMIN_CREDENCIALES.user && password === ADMIN_CREDENCIALES.password);
+    return esAdmin;
 }
 
-export function login(user, password){
-    esAdmin = (user === ADMIN_CREDENCIALES.user && password === ADMIN_CREDENCIALES.password)
-    return esAdmin
-} 
-
-export function checkAdmin(){
-    return esAdmin
+export function checkAdmin() {
+    return esAdmin;
 }
 
-export function logout(){
-    esAdmin = false
-    updateUI()
+export function logout() {
+    esAdmin = false;
+    updateUI();
 }
 
-export function updateUI(){
-    const adminBtn = document.getElementById('btn-admin')
-    if(esAdmin){
-        adminBtn.textContent = "salir del modo administrador"
-        adminBtn.classList.add('btn-admin-active')
-    }else{
-        adminBtn.textContent = "modo administrador"
-        adminBtn.classList.remove('btn-admin-active')
+export function updateUI() {
+    const adminBtn = document.getElementById('btn-admin');
+    if (esAdmin) {
+        adminBtn.textContent = "Salir del modo administrador";
+        adminBtn.classList.add('btn-admin-active');
+    } else {
+        adminBtn.textContent = "Modo administrador";
+        adminBtn.classList.remove('btn-admin-active');
+    }
+    
+    // Actualizar la vista de pilotos al cambiar el estado de admin
+    if (typeof renderPilotos === 'function') {
+        renderPilotos();
     }
 }
 
-//evento para el boton admin
+// Mostrar ventana de login
+export function showLoginWindow() {
+    const loginWindow = document.getElementById('login-window');
+    loginWindow.style.display = 'flex';
+    void loginWindow.offsetWidth; // Forzar reflow
+    loginWindow.classList.add('active');
+}
+
+// Ocultar ventana de login
+export function hideLoginWindow() {
+    const loginWindow = document.getElementById('login-window');
+    loginWindow.classList.remove('active');
+    setTimeout(() => {
+        loginWindow.style.display = 'none';
+    }, 300); // Coincide con la duración de la animación
+}
+
+// Evento del botón admin
 document.getElementById('btn-admin').addEventListener('click', () => {
-    if (esAdmin) {
+    if (checkAdmin()) {
         logout();
     } else {
-        const loginWindow = document.getElementById('login-window');
-        loginWindow.style.display = 'flex'; // Cambia primero a flex
-        setTimeout(() => {
-            loginWindow.classList.add('active'); // Luego activa la animación
-        }, 10);
+        showLoginWindow();
     }
 });
 
-// Cerrar ventana
-document.querySelector('.close-btn').addEventListener('click',()=>{
-    document.getElementById('login-window').classList.remove('active')
-})
+// Evento del botón cerrar
+document.querySelector('.close-btn').addEventListener('click', hideLoginWindow);
 
-
-export function showLoginWindow() {
-    const loginWindow = document.getElementById('login-window')
-    loginWindow.style.display = 'flex'
-
-    void loginWindow.offsetWidth
-
-    loginWindow.classList.add('active')
-}
-
+// Evento del botón login (¡CORREGIDO!)
 document.getElementById('btn-login').addEventListener('click', () => {
-    if(checkAdmin()){
-        logout()
-    }else{
-        showLoginWindow()
+    const user = document.getElementById('login-user').value;
+    const password = document.getElementById('login-password').value;
+    
+    if (login(user, password)) {
+        hideLoginWindow();
+        updateUI();
+        alert("¡Bienvenido, Administrador!");
+    } else {
+        // Animación de error
+        const loginContent = document.querySelector('.login-content');
+        loginContent.classList.add('shake');
+        setTimeout(() => {
+            loginContent.classList.remove('shake');
+        }, 500);
+        alert("Credenciales incorrectas");
     }
-})
+});

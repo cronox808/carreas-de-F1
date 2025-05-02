@@ -1,5 +1,23 @@
 import { pilotos, circuitos } from './data.js';
 import { checkAdmin, logout, login } from './auth.js';
+import { PilotosManager } from '.crud.js'
+import { renderPilotos } from '.dom.js'
+
+document.getElementById('form-login').addEventLister('submit', (e) => {
+    e.preventDefault()
+
+    const nuevoPiloto ={
+        nombre: document.getElementById('input-nombre').value,
+        equipo: document.getElementById('input-equipo').value
+    } 
+
+    if (PilotosManager.addPiloto(nuevoPiloto)) {
+        renderPilotos()
+        e.target.reset()
+    }
+})
+
+
 
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
@@ -64,24 +82,7 @@ function setupFormulario() {
     });
 }
 
-function renderPilotos() {
-    const container = document.getElementById('pilotos-container');
-    container.innerHTML = '';
-    pilotos.forEach(piloto => {
-        container.innerHTML += `
-            <div class="piloto-card">
-                <h3>${piloto.nombre}</h3>
-                <p>${piloto.equipo}</p>
-                ${checkAdmin() ? `
-                    <div class="admin-actions">
-                        <button onclick="editarPiloto(${piloto.id})" class="btn">Editar</button>
-                        <button onclick="eliminarPiloto(${piloto.id})" class="btn btn-danger">Eliminar</button>
-                    </div>
-                ` : ''}
-            </div>
-        `;
-    });
-}
+
 
 // Función global para eliminar
 window.eliminarPiloto = function(id) {
@@ -94,3 +95,4 @@ window.eliminarPiloto = function(id) {
 
 // Inicialización
 loadView('');
+renderPilotos();
