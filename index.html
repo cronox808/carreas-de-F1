@@ -4,26 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador F1</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
-    <header class="bg-f1-red p-4 shadow-lg">
-        <h1 class="text-3xl font-bold">Simulador de Formula 1</h1>
-        <!--Flexbox para navegacion-->
-        <nav class="mt-4">
-            <!--Titulo-->
-            <ul class="flex flex-wrap gap-4">
-                <li><a href="#" class="nav-link hover:underline" data-view="circuitos">Circuitos</a></li>
-                <li><a href="#" class="nav-link hover:underline" data-view="pilotos">Pilotos</a></li>
-                <li><a href="#" class="nav-link hover:underline" data-view="vehiculos">Vehiculos</a></li>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>🏎️ Simulador de Fórmula 1</h1>
+            <button id="btn-admin" class="btn-admin">Modo Administrador</button>
+        </div>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="#" class="nav-link" data-view="pilotos">Pilotos</a></li>
+                <li><a href="#" class="nav-link" data-view="circuitos">Circuitos</a></li>
+                <li><a href="#" class="nav-link" data-view="simulacion">Simulación</a></li>
             </ul>
         </nav>
     </header>
-    <main id="app" class="container mx-auto p-4">
-        <!--contenido dinamico proximamente-->
-        <p class="text-center mt-8">Seleciona una secion del menu</p>
+
+    <main id="app">
+        <p class="welcome-message">Selecciona una sección del menú.</p>
     </main>
-    <script type="module" src="src/app.js"></script>
+
+    <!-- Ventana de Login (oculta inicialmente) -->
+    <div id="login-window" class="login-window">
+        <div class="login-content">
+            <span class="close-btn">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <div class="form-group">
+                <label for="login-user">Usuario:</label>
+                <input type="text" id="login-user" placeholder="admin">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Contraseña:</label>
+                <input type="password" id="login-password" placeholder="f1admin2023">
+            </div>
+            <button id="btn-login" class="btn">Ingresar</button>
+        </div>
+    </div>
+
+    <script src="scripts/auth.js" type="module"></script>
+    <script src="scripts/data.js" type="module"></script>
+    <script src="scripts/animaciones.js" type="module"></script>
+    <script src="scripts/app.js" type="module"></script>
 </body>
 </html>
