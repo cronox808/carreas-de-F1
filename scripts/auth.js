@@ -47,3 +47,21 @@ document.getElementById('btn-admin').addEventListener('click', () => {
 document.querySelector('.close-btn').addEventListener('click',()=>{
     document.getElementById('login-window').classList.remove('active')
 })
+
+
+export function showLoginWindow() {
+    const loginWindow = document.getElementById('login-window')
+    loginWindow.style.display = 'flex'
+
+    void loginWindow.offsetWidth
+
+    loginWindow.classList.add('active')
+}
+
+document.getElementById('btn-login').addEventListener('click', () => {
+    if(checkAdmin()){
+        logout()
+    }else{
+        showLoginWindow()
+    }
+})

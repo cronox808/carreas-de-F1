@@ -1,28 +1,36 @@
-import { login, updateUI } from './auth.js';
+import { login, updateUI, showLoginWindow } from './auth.js';
 
-document.getElementById("btn-login").addEventListener('click', () => {
+document.getElementById('btn-login').addEventListener('click', () => {
+    const loginWindow = document.getElementById('login-window');
+    const loginContent = document.querySelector('.login-content')
     const user = document.getElementById("login-user").value;
     const password = document.getElementById("login-password").value;
-
+    
     if (login(user, password)) {
-        // Animación de éxito
-        const loginWindow = document.getElementById('login-window');
+        // 1. Animación de salida
         loginWindow.style.animation = 'fadeOut 0.3s forwards';
-
+        
+        // 2. Remover completamente después de la animación
         setTimeout(() => {
-            loginWindow.classList.remove('active');
+            loginWindow.style.display = 'none';
             loginWindow.style.animation = '';
+            loginWindow.classList.remove('active');
             updateUI();
-            alert(`¡Bienvenido, ${user}!`);
+            alert(`¡Bienvenido, ${user}!`)
+            
+            // 3. Limpiar inputs
+            document.getElementById('login-user').value = '';
+            document.getElementById('login-password').value = '';
+            
+            updateUI();
         }, 300);
     } else {
-        // Animación de error
-        const loginContent = document.querySelector('.login-content'); // Corregido aquí
+        const loginContent = document.querySelector('.login-content');
         loginContent.style.animation = 'shake 0.5s';
 
         setTimeout(() => {
             loginContent.style.animation = '';
-            alert("Credenciales incorrectas"); // Mover el alert aquí
-        }, 500);
+            alert(`Usuario o contraseña incorrectos.`)
+        }, 500)
     }
 });
