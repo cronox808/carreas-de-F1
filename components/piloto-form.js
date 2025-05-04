@@ -1,30 +1,33 @@
-import { getPilotos, savePilotos } from '../data/piloto-storage.js';
+// components/piloto-form.js
+import { db } from '../storage/db.js';
 
 class PilotoForm extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      <form id="piloto-form">
-        <input type="text" id="nombre" placeholder="Nombre del piloto" required />
-        <input type="text" id="equipo" placeholder="Equipo" required />
-        <button>Agregar piloto</button>
+      <h2>Agregar Piloto</h2>
+      <form id="form-piloto">
+        <input type="text" name="nombre" placeholder="Nombre" required />
+        <input type="text" name="pais" placeholder="País" required />
+        <input type="text" name="escuderia" placeholder="Escudería" required />
+        <button type="submit">Guardar</button>
       </form>
     `;
-    this.querySelector('form').addEventListener('submit', this.addPiloto);
-  }
 
-  addPiloto(e) {
-    e.preventDefault();
-    const nombre = document.getElementById('nombre').value.trim();
-    const equipo = document.getElementById('equipo').value.trim();
-    if (!nombre || !equipo) return;
+    this.querySelector('form').addEventListener('submit', e => {
+      e.preventDefault();
+      const form = e.target;
+      const nuevoPiloto = {
+        nombre: form.nombre.value.trim(),
+        pais: form.pais.value.trim(),
+        escuderia: form.escuderia.value.trim()
+      };
 
-    const pilotos = getPilotos();
-    pilotos.push({ id: Date.now(), nombre, equipo });
-    savePilotos(pilotos);
-
-    document.getElementById('nombre').value = '';
-    document.getElementById('equipo').value = '';
-    document.querySelector('piloto-list').render();
+      if (nuevoPiloto.nombre && nuevoPiloto.pais && nuevoPiloto.escuderia) {
+        db.addPiloto(nuevoPiloto);
+        form.reset();
+        document.querySelector('piloto-list')?.render(); // Recarga lista
+      }
+    });
   }
 }
 

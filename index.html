@@ -2,14 +2,24 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulador F1 - Gestión de Pilotos</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador F1</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Simulador F1 - Pilotos</h1>
-  <piloto-form></piloto-form>
-  <piloto-list></piloto-list>
+  <header>
+    <h1>Simulador Interactivo de Fórmula 1</h1>
+    <nav>
+      <button data-view="pilotos">Pilotos</button>
+      <button data-view="vehiculos">Vehículos</button>
+      <button data-view="circuitos">Circuitos</button>
+      <button data-view="simulacion">Simulación</button>
+    </nav>
+  </header>
+
+  <main id="app-view">
+    <!-- Aquí se renderiza cada sección -->
+  </main>
 
   <script type="module" src="main.js"></script>
 </body>
