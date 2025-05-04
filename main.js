@@ -1,7 +1,12 @@
 import './components/piloto-form.js';
 import './components/piloto-list.js';
+import './components/vehiculo-form.js';
+import './components/vehiculo-list.js';
+import './components/piloto-form.js';
+import './components/piloto-list.js';
 import { db } from './storage/db.js';
 db.initData();
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appView.innerHTML = `<piloto-form></piloto-form><piloto-list></piloto-list>`;
         break;
       case 'vehiculos':
-        appView.innerHTML = `<h2>Gestión de Vehículos (pendiente)</h2>`;
+        appView.innerHTML = `<vehiculo-form></vehiculo-form><vehiculo-list></vehiculo-list>`;
         break;
       case 'circuitos':
         appView.innerHTML = `<h2>Gestión de Circuitos (pendiente)</h2>`;
