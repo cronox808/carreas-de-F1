@@ -1,4 +1,3 @@
-// components/piloto-list.js
 import { db } from '../storage/db.js';
 
 class PilotoList extends HTMLElement {
@@ -14,6 +13,9 @@ class PilotoList extends HTMLElement {
         ${pilotos.map(p => `
           <li>
             <strong>${p.nombre}</strong> - ${p.pais} - ${p.escuderia}
+            <br>
+            <img src="${p.imagen}" alt="${p.nombre}" class="piloto-image" onerror="this.onerror=null; this.src='images/default.png';">
+            <br>
             <button data-id="${p.id}" class="edit">✏️</button>
             <button data-id="${p.id}" class="delete">🗑️</button>
           </li>
@@ -21,6 +23,7 @@ class PilotoList extends HTMLElement {
       </ul>
     `;
 
+    // Agregar eventos a los botones de editar y eliminar
     this.querySelectorAll('.delete').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = parseInt(btn.dataset.id);
@@ -36,13 +39,15 @@ class PilotoList extends HTMLElement {
         const nuevoNombre = prompt("Editar nombre", piloto.nombre);
         const nuevoPais = prompt("Editar país", piloto.pais);
         const nuevaEscuderia = prompt("Editar escudería", piloto.escuderia);
+        const nuevaImagen = prompt("Editar URL de la imagen", piloto.imagen);
 
-        if (nuevoNombre && nuevoPais && nuevaEscuderia) {
+        if (nuevoNombre && nuevoPais && nuevaEscuderia && nuevaImagen) {
           db.updatePiloto({
             id,
             nombre: nuevoNombre,
             pais: nuevoPais,
-            escuderia: nuevaEscuderia
+            escuderia: nuevaEscuderia,
+            imagen: nuevaImagen
           });
           this.render();
         }

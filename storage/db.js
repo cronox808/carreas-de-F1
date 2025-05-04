@@ -5,27 +5,24 @@ const VEHICULOS_KEY = 'f1_vehiculos';
 
 export const db = {
   // === Pilotos ===
-  getPilotos() {
+getPilotos() {
     return JSON.parse(localStorage.getItem(PILOTOS_KEY)) || [];
   },
-  savePilotos(pilotos) {
-    localStorage.setItem(PILOTOS_KEY, JSON.stringify(pilotos));
-  },
+
   addPiloto(piloto) {
-    const pilotos = this.getPilotos();
-    piloto.id = Date.now();
+    const pilotos = db.getPilotos();
     pilotos.push(piloto);
-    this.savePilotos(pilotos);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(pilotos));
   },
+
   deletePiloto(id) {
-    const pilotos = this.getPilotos().filter(p => p.id !== id);
-    this.savePilotos(pilotos);
+    const pilotos = db.getPilotos().filter(p => p.id !== id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(pilotos));
   },
-  updatePiloto(pilotoEditado) {
-    const pilotos = this.getPilotos().map(p =>
-      p.id === pilotoEditado.id ? pilotoEditado : p
-    );
-    this.savePilotos(pilotos);
+
+  updatePiloto(pilotoActualizado) {
+    const pilotos = db.getPilotos().map(p => p.id === pilotoActualizado.id ? pilotoActualizado : p);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(pilotos));
   },
 
   // === Vehículos ===

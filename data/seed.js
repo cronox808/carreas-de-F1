@@ -9,7 +9,7 @@ export function savePilotos(pilotos) {
 }
 
 export const pilotos = [
-  { id: 1, nombre: "Max Verstappen", equipo: "Red Bull Racing", rol: "Líder", imagen: "https://upload.wikimedia.org/wikipedia/commons/8/89/Max_Verstappen_2023_Austria_FP2_%28cropped%29.jpg" },
+  { id: 1, nombre: "Max Verstappen", equipo: "Red Bull Racing", rol: "Líder", imagen: "https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/drivers/2025Drivers/verstappen" },
 
   { id: 2, nombre: "Sergio Pérez", equipo: "Red Bull Racing", rol: "Escudero", imagen: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Sergio_P%C3%A9rez_2022.jpg" },
 
@@ -46,7 +46,7 @@ export const pilotos = [
   { id: 18, nombre: "Daniel Ricciardo", equipo: "AlphaTauri", rol: "Escudero", imagen: "https://upload.wikimedia.org/wikipedia/commons/8/83/Daniel_Ricciardo_2022.jpg" },
 
   { id: 19, nombre: "Alexander Albon", equipo: "Williams", rol: "Líder", imagen: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Alexander_Albon_2022.jpg" },
-  
+
   { id: 20, nombre: "Logan Sargeant", equipo: "Williams", rol: "Escudero", imagen: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Logan_Sargeant_2023.jpg" }
 ];
 

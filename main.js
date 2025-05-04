@@ -6,7 +6,12 @@ import './components/piloto-form.js';
 import './components/piloto-list.js';
 import { db } from './storage/db.js';
 db.initData();
+// main.js
+import { pilotos } from './data/seed.js';
 
+if (db.getPilotos().length === 0) {
+  pilotos.forEach(p => db.addPiloto(p));
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
